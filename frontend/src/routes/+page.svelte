@@ -1,2 +1,53 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+	import { pb } from "$lib";
+	async function handleLogin() {
+
+		const authData = await pb.collection('users').authWithPassword(
+    'alexjones',
+    '12345678',
+);
+const data = {
+    "memberid": 123,
+    "classadmin": true
+};
+
+const record = await pb.collection('classmember').create(data);
+
+
+	}
+	
+</script>
+
+<style lang="postcss">
+	figure {
+		@apply flex relative flex-col;
+	}
+	figure svg,
+	.img-bg {
+		@apply w-64 h-64 md:w-80 md:h-80;
+	}
+	.img-bg {
+		@apply absolute z-[-1] rounded-full blur-[50px] transition-all;
+		animation: pulse 5s cubic-bezier(0, 0, 0, 0.5) infinite,
+			glow 5s linear infinite;
+	}
+	@keyframes glow {
+		0% {
+			@apply bg-primary-400/50;
+		}
+		33% {
+			@apply bg-secondary-400/50;
+		}
+		66% {
+			@apply bg-tertiary-400/50;
+		}
+		100% {
+			@apply bg-primary-400/50;
+		}
+	}
+	@keyframes pulse {
+		50% {
+			transform: scale(1.5);
+		}
+	}
+</style>
