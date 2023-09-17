@@ -1,6 +1,9 @@
 <script>
+	// onMount(() => {
+	// 	// let's update
+	// })
 	import '../app.postcss';
-	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+	import { AppShell, AppBar, Toast } from '@skeletonlabs/skeleton';
 
 	// Highlight JS
 	import hljs from 'highlight.js';
@@ -12,7 +15,48 @@
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+	import { initializeStores, Modal, getModalStore } from '@skeletonlabs/skeleton';
+	import LoginComponent from "$lib/LoginComponent.svelte"
+	import {isLoggedIn} from '$lib/stores'
+	import { onMount } from 'svelte';
+	initializeStores();
+	let isLoggedIn_local;
+	console.log(isLoggedIn_local + "POST2")
+
+	var store = getModalStore()
+	isLoggedIn.subscribe((val) => {
+		// TODO: ADD CHECK FOR SCREWERSHIP
+		console.log("SUB VAL" + val) 
+			isLoggedIn_local = val;
+
+		
+	});
+	
+	function triggerLogin() {
+		
+
+		const modalComponent = {
+			// Pass a reference to your custom component
+			ref: LoginComponent,
+			// Add the component properties as key/value pairs
+			props: { background: 'bg-red-500' },
+			// Provide a template literal for the default component slot
+			slot: '<p>Skeleton</p>'
+		};
+		
+			const modal = {
+				type: 'component',
+				// Pass the component directly:
+				component: modalComponent,
+			};
+			
+			store.trigger(modal);
+									
+									
+	}
 </script>
+<Toast />
+<Modal />
 
 <!-- App Shell -->
 <AppShell>
@@ -23,12 +67,8 @@
 				<strong class="text-xl uppercase">Vultyr</strong>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="/login"
-				>
-					Log In
-				</a>
+				<button on:click={triggerLogin} style="btn btn-sm variant-ghost-surface px-8">Log In</button>
+				
 			
 			</svelte:fragment>
 		</AppBar>
