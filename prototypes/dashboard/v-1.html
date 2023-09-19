@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            background-color: #111;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .sidebar {
+    width: 0;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    overflow-x: hidden;
+    transition: width 0.5s, opacity 0.5s;
+    padding-top: 60px;
+    z-index: 1;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    box-shadow: 0 0 10px rgba(30, 29, 29, 0.5);
+    
+}
+
+
+        .sidebar-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .sidebar-content .menu-item:hover {
+            color: #2196F3;
+            font-size: 20px;
+            transition: font-size 1s;
+
+        }
+
+        .menu-item {
+            font-size: 18px;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .menu-item.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .menu-item:hover {
+            color: #2196F3;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .navbar {
+    background-color: #222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 1s;
+}
+
+.navbar:hover {
+    background-color: #444;
+}
+.navbar .profile-icon,
+.navbar .hamburger {
+    font-size: 24px;
+    cursor: pointer;
+    color: #fff;
+    transition: color 0.5s;
+}
+
+.navbar .profile-icon:hover,
+.navbar .hamburger:hover {
+    color: #2196F3;
+}
+
+
+
+        .profile-icon {
+            font-size: 24px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .hamburger {
+            font-size: 24px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .close-icon {
+            font-size: 24px;
+            cursor: pointer;
+            color: #fff;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            opacity: 0;
+            transform: scale(0);
+            transition: 0.3s;
+        }
+
+        .close-icon.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .close-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: #fff;
+    transition: color 0.5s;
+}
+
+.close-icon:hover {
+    color: #2196F3;
+}
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            cursor:default;
+        }
+
+        .dashboard-content {
+            padding: 20px;
+        }
+
+        .dashboard-content h2 {
+            margin-bottom: 20px;
+        }
+
+        .dashboard-content p {
+            margin-bottom: 10px;
+            
+        }
+
+
+        .content-section {
+            background-color: #444;
+            color: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        /* Style for the Classes section */
+        .classes-section {
+            background-color: #555;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        /* Style for the small square section */
+        .small-square-section {
+            background-color: #666;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="sidebar" id="mySidebar">
+        <div class="sidebar-content">
+            <div class="menu-item" onclick="showDashboard()">Dashboard</div>
+            <div class="menu-item" onclick="showClasses()">Classes</div>
+            <div class="menu-item" onclick="showVerified()">Verified Assignments</div>
+            <div class="close-icon" onclick="toggleSidebar()">X</div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="navbar">
+            <div class="hamburger" onclick="toggleSidebar()">&#9776;</div>
+            <div class="title" onclick="showDashboard()">Vultyr Dashboard</div>
+            <div class="profile-icon">&#9733;</div>
+        </div>
+
+        <div class="dashboard-content" id="dashboard-content">
+            <h2>Dashboard</h2>
+            <!-- Dashboard content here -->
+        </div>
+    
+        <!-- Additional dashboard content sections -->
+        <div class="content-section">
+            <h2>Classes</h2>
+            Classes Content Goes Here
+        </div>
+    
+        <div class="content-section" style="background-color: orange;">
+            <h2>Upcoming Assignments</h2>
+            Upcoming Assignments Content Goes Here
+        </div>
+    
+        <div class="content-section" style="background-color: green;">
+            <h2>Completed Assignments</h2>
+            Completed Assignments Content Goes Here
+        </div>
+    
+        <div class="small-square-section">
+            <h2>Small Square Section</h2>
+            Content for the Small Square Section Goes Here
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById('mySidebar');
+            var menuItems = document.querySelectorAll('.menu-item');
+            var closeIcon = document.querySelector('.close-icon');
+            menuItems.forEach(function(item, index) {
+                if (item.classList.contains('active')) {
+                    setTimeout(function() {
+                        item.classList.remove('active');
+                    }, index * 100);
+                } else {
+                    setTimeout(function() {
+                        item.classList.add('active');
+                    }, index * 100);
+                }
+            });
+            closeIcon.classList.toggle('active');
+            sidebar.style.width = sidebar.style.width === '250px' ? '0' : '250px';
+        }
+
+        function showDashboard() {
+            var content = document.getElementById('dashboard-content');
+            content.innerHTML = '<h2>Dashboard</h2>Dashboard Content Goes Here';
+        }
+
+        function showClasses() {
+            var content = document.getElementById('dashboard-content');
+            content.innerHTML = '<h2>Classes</h2>Classes Content Goes Here';
+        }
+
+        function showVerified() {
+            var content = document.getElementById('dashboard-content');
+            content.innerHTML = '<h2>Verified Assignments</h2>Verified Assignments Content Goes Here';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            showDashboard();
+        });
+    </script>
+</body>
+</html>
