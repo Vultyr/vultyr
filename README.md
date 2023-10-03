@@ -4,7 +4,7 @@
 
 ## Description
 
-Vultyr is an app designed to help students with their classes, it makes it easier to communicate, it's crowd sourced and so much more.
+Vultyr is an app designed to help students with their classes, it makes it easier to communicate, it's crowd sourced and so much more. Vultyr can be described as Reddit for students.
 
 ## Features
 
